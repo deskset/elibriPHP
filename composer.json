@@ -1,0 +1,6 @@
+{
+    "name": "deskset/elibri-php",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {}
+}
