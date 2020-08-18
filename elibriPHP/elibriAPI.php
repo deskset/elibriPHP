@@ -251,11 +251,22 @@ class ElibriAPI {
     $data = $this->request($this->_Q_POP, $this->_POST, $queue, $query);
     $headers = $data[0];
     $source = $data[1];
-    if ($headers["x-elibri-api-pop-products-count"] == 0) {
-      return NULL;
-    } else {
-      $xml =  "$source\n\n\n";
-      return ElibriOnixMessage::parse($source);
+    if (isset($headers["x-elibri-api-pop-products-count"])) {
+      if ($headers["x-elibri-api-pop-products-count"] == 0) {
+        return NULL;
+      } else {
+        $xml =  "$source\n\n\n";
+        return ElibriOnixMessage::parse($source);
+      }
+    }
+
+    if (isset($headers["X-eLibri-API-pop-products-count"])) {
+      if ($headers["X-eLibri-API-pop-products-count"] == 0) {
+        return NULL;
+      } else {
+        $xml =  "$source\n\n\n";
+        return ElibriOnixMessage::parse($source);
+      }
     }
   }
 
@@ -280,7 +291,7 @@ class ElibriAPI {
     $data = $this->request($this->_P_REFERENCE, $this->_GET, $reference);
     return ElibriOnixMessage::parse($data[1]);
   }
-  
+
 }
 
 ?>
